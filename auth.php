@@ -8,8 +8,6 @@
 session_start();
 $id = (integer)$_GET['user_id'];
 $token = (string)$_GET['access_token'];
-
-
 if (isset($token)&&isset($id)) {
     $request_params = array(
         'access_token' => $_GET['access_token'],
