@@ -19,7 +19,7 @@ function months()
 
 function sort_dates($a, $b)
 {
-    return $a->date < $b->date;
+    return $a->date > $b->date;
 }
 
 function view($notifications)
