@@ -23,12 +23,10 @@ if (isset($token)&&isset($id)) {
                 } else {
                     echo "Error: " . $db->error;
                 }
-
                 $db->close();
-
             }
-
         }
+        $_SESSION['logout_time']=(new DateTime())->getTimestamp()+86400;
         header("Location: http://" . $_SERVER['HTTP_HOST'] . "");
     }
 }

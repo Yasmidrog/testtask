@@ -48,6 +48,7 @@ function get_profile($id, $profiles)
 
 function new_notif($conn, $id)
 {
+
     $last = last_date($conn, $id);
     $request_params = array(
         'access_token' => $_SESSION['token'],
@@ -63,6 +64,7 @@ function new_notif($conn, $id)
     }
     $get_params = http_build_query($request_params);
     $result = json_decode(file_get_contents('https://api.vk.com/method/notifications.get?' . $get_params));
+
     $new_notifications = [];
     $profiles = $result->response->profiles;
     foreach ($result->response->items as $item) {

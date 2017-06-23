@@ -58,15 +58,14 @@ function element($n)
 
                 <img src="<?php echo $n->photo ?>" width="50px" height="50px">
             </div>
-
             <div class="about">
                 <p><?php echo $n->name ?>
 
                 </p>
                 <p class="small"><?php echo date('m-d G:i', ($n)->date); ?>
-                <?php if (isset($_SESSION['last']) && $n->date > $_SESSION['last']) { ?>
-                    <span>новое</span>
-                <?php } ?>
+                    <?php if (isset($_SESSION['last']) && $n->date > $_SESSION['last']) { ?>
+                        <span>новое</span>
+                    <?php } ?>
                 </p>
             </div>
         </div>
