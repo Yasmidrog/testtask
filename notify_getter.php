@@ -38,7 +38,6 @@ function get_users($feedback, $date, $profiles)
 
 function get_profile($id, $profiles)
 {
-
     foreach ($profiles as $p) {
         if ($p->id === $id) {
             return $p;
@@ -47,7 +46,8 @@ function get_profile($id, $profiles)
 }
 
 
-function new_notif($conn, $id){
+function new_notif($conn, $id)
+{
     $last = last_date($conn, $id);
     $request_params = array(
         'access_token' => $_SESSION['token'],
@@ -55,11 +55,11 @@ function new_notif($conn, $id){
         'v' => '5.52'
     );
     if (!is_null($last)) {
-        $t= strtotime($last);
-        $request_params['start_time']=$t+1;
+        $t = strtotime($last);
+        $request_params['start_time'] = $t + 1;
         $_SESSION['last'] = $t;
-    }else{
-        $request_params['start_time']=strtotime("-1 month");
+    } else {
+        $request_params['start_time'] = strtotime("-1 month");
     }
     $get_params = http_build_query($request_params);
     $result = json_decode(file_get_contents('https://api.vk.com/method/notifications.get?' . $get_params));
@@ -79,18 +79,16 @@ function new_notif($conn, $id){
 
 function write_new($conn, $new, $id)
 {
-
+    if (empty($new)) {
+        return;
+    }
     $date = date('Y-m-d G:i:s', ($new[0])->date);
     $conn->query("UPDATE users SET last_visit='{$date}' WHERE id={$id}");
-    if (!empty($new)) {
-        foreach ($new as $n) {
-            $time = date('Y-m-d G:i:s', $n->date);
-            $q = "INSERT INTO notifications (uid, photo, name, date)
+    foreach ($new as $n) {
+        $time = date('Y-m-d G:i:s', $n->date);
+        $q = "INSERT INTO notifications (uid, photo, name, date)
             VALUES ({$id}, '{$n->photo}', '{$n->name}', '{$time}')";
-            $conn->query($q);
-
-        }
-
+        $conn->query($q);
     }
 
 }
@@ -102,16 +100,15 @@ function old_notif($conn, $id)
 
     if ($not->num_rows > 0)
         while ($row = $not->fetch_assoc()) {
-            $row["date"]=strtotime($row["date"]);
+            $row["date"] = strtotime($row["date"]);
             array_push($old, (object)$row);
         }
     return $old;
 }
 
 $old = old_notif($conn, $id);
-
 $newn = new_notif($conn, $id);
 include 'notiview.php';
-view(array_merge($newn, $old));
+view(array_merge( $old, $newn));
 write_new($conn, $newn, $id);
 

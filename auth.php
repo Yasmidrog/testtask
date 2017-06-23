@@ -9,10 +9,7 @@ session_start();
 $id = (integer)$_GET['user_id'];
 $token = (string)$_GET['access_token'];
 if (isset($token)&&isset($id)) {
-    $request_params = array(
-        'access_token' => $_GET['access_token'],
-        'v' => '5.52'
-    );
+
     if ($token) {
         $db = include "mysqlinit.php";
         $_SESSION['user_id'] = $id;
@@ -30,8 +27,8 @@ if (isset($token)&&isset($id)) {
                 $db->close();
 
             }
-        }
 
+        }
         header("Location: http://" . $_SERVER['HTTP_HOST'] . "");
     }
 }

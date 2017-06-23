@@ -1,17 +1,33 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    include  'mysqlinit.php';
-   ?>
-    <p>Чтобы воспользоваться сервисом, необходимо войти</p>
-    <a href="https://oauth.vk.com/authorize?client_id=6083076&display=page&redirect_uri=http://localhost:8080/auth.php&scope=notifications&response_type=token&v=5.65&state=123456">Войти</a>
+<html>
+<head>
+    <meta name="viewport" content=" initial-scale=1">
+    <link rel="stylesheet" href="stylesheets/main.css">
+
+</head>
+<body>
+<div class="wrapper">
     <?php
-} else {
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        include 'mysqlinit.php';
+        ?>
+        <div class="enter">
+            <p class=" enter_text">Чтобы воспользоваться сервисом, необходимо
+                <a class="enter_btn"
+                   href="https://oauth.vk.com/authorize?client_id=<?php echo $clientid ?>&display=page&redirect_uri=http://localhost:8080/auth.php&scope=notifications&response_type=token&v=5.65&state=123456">
+                    войти</a></p>
+
+        </div>
+        <?php
+    } else {
+        ?>
+        <a class="exit_btn" href="/auth.php?action=logout"> Выйти</a>
+        <?php
+
+
+        include 'notify_getter.php';
+    }
     ?>
-    <a href="/auth.php?action=logout"> Выйти</a>
-    <?php
-
-
-    include 'notify_getter.php';
-}
-?>
+</div>
+</body>
+</html>
