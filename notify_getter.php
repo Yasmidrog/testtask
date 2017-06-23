@@ -111,6 +111,6 @@ function old_notif($conn, $id)
 $old = old_notif($conn, $id);
 $newn = new_notif($conn, $id);
 include 'notiview.php';
-view(array_merge( $old, $newn));
+view(array_merge($old, $newn));
 write_new($conn, $newn, $id);
 

@@ -6,8 +6,6 @@ if ($mysqli->connect_errno) {
 }
 $val = $mysqli->query('SELECT 1 FROM `users` LIMIT 1');
 if ($val === FALSE) {
-
-
     $mysqli->query("CREATE TABLE users (
                                   id INT(32) UNSIGNED PRIMARY KEY NOT NULL , 
                                   last_visit  TIMESTAMP(6) NULL DEFAULT NULL ,

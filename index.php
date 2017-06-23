@@ -6,7 +6,9 @@
 </head>
 <body>
 <div class="wrapper">
+
     <?php
+    date_default_timezone_set('Europe/Moscow');
     include 'vkconf.php';
     $link = "https://oauth.vk.com/authorize?client_id={$clientid}&display=page&redirect_uri=http://localhost:8080/auth.php&scope=notifications&response_type=token&v=5.65&state=123456";
     session_start();
